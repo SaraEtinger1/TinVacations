@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 export const connectDb = () => {
-    let uri= process.env.DB_URI||"mongodb://0.0.0.0:27017/FastFood"
+    let uri= process.env.DB_URI||"mongodb://0.0.0.0:27017/hotel"    
     mongoose.connect(uri)
         .then(suc => {
             console.log("mongoDB connected" + suc.connection.host);

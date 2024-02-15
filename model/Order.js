@@ -18,14 +18,14 @@ export const orderModel = mongoose.model("order", orderSchema)
 
 export const validatOrder = (_order) => {
     const oSchema = Joi.object({
-        day: Joi.Number().required(),
-        dateToOrder: Joi.Number(),
-        adress: Joi.String().required(),
-        detailsInviting: Joi.String().required(),
+        day: Joi.number().required(),
+        dateToOrder: Joi.number(),
+        adress: Joi.string().required(),
+        detailsInviting: Joi.string().required(),
         orderedProducts: Joi.object({
-            name: Joi.String(),
-            price: Joi.Number(),
-            count: Joi.Number()
+            name: Joi.string(),
+            price: Joi.number(),
+            count: Joi.number()
         })
     })
     return oSchema.validate(_order);
