@@ -6,7 +6,7 @@ export const auth = (req, res, next) => {
     if (!token)
         return res.status(401).send("אין לך הרשאת גישה למערכת")
     try {
-        let user = Jwt.verify(token, process.env.JWT_SECRET);
+        let user = Jwt.verify(token, process.env.JWT_SECRET||"succsful");
         req.myUser = user;
         next();
     }

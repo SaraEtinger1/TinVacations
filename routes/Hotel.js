@@ -8,13 +8,13 @@ router.get("/", getAllHotels)
 
 router.get("/:id", getHotelById)
 
-router.post("/", addHotel)
-// router.post("/", auth, addHotel)
+// router.post("/", addHotel)
+router.post("/", auth, addHotel)
 
 router.delete("/:id", auth, deleteHotel)
 
-router.put("/:id",  updateHotel)
-// router.put("/:id", auth, updateHotel)
+// router.put("/:id",  updateHotel)
+router.put("/:id", auth, updateHotel)
 
 
 

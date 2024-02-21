@@ -1,5 +1,6 @@
 import Joi from "joi";
 import mongoose from "mongoose";
+import Jwt from "jsonwebtoken";
 
 const userSchema = mongoose.Schema({
     userName: String,

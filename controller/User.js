@@ -1,5 +1,6 @@
 import bcryptjs from "bcryptjs";
 import { userModel, validateUser, validateUserLogin } from "../model/User.js";
+import { generateToken } from "../model/User.js";
 
 export const getAllUsers = async (req, res) => {
     try {
@@ -32,7 +33,7 @@ export const addUser = async (req, res) => {
         return res.status(201).json({ userName: newUser.userName, role: newUser.role, _id: newUser._id, token })
     }
     catch (err) {
-        res.status(400).json(err)
+        return res.status(400).json(err)
     }
 }
 
@@ -47,11 +48,14 @@ export const loginUser = async (req, res) => {
         let isUser = await userModel.findOne({ email })
         if (!isUser)
             return res.status(400).send("לא קיים מייל זה במערכת")
-        if (await bcryptjs.compare(password, isUser.password))
+        if (!await bcryptjs.compare(password, isUser.password))
             return res.status(400).send("סיסמא לא נכונה")
+        let token = generateToken(isUser.userName, isUser._id, isUser.role);
 
-        isUser.password = "******"
-        return res.status(201).json(isUser)
+        return res.status(201).json({ userName: isUser.userName, role: isUser.role, _id: isUser._id, token })
+
+        // isUser.password = "******"
+        // return res.status(201).json(isUser)
     }
     catch (err) {
         res.status(400).json(err)

@@ -9,7 +9,8 @@ const hotelSchema = mongoose.Schema({
     opinion: String,
     imgRoom: [String],
     imgHotel: String,
-    kosher:String
+    kosher:String,
+    userAdd:String
 })
 
 export const hotelModel = mongoose.model("Hotel", hotelSchema)

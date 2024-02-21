@@ -66,8 +66,7 @@ export const updateHotel = async (req, res) => {
 }
 export const addHotel = async (req, res) => {
     let { hotelName, adress, kosher } = req.body;
-    // if (!nameT||!isChalavi)
-    //     return res.status(404).send("חסר פרמטרים להוספת טוסט לתפריט")
+   
     let result = validatHotel(req.body);
     if (result.error)
         return res.status(400).send(result.error.details[0].message)
@@ -75,8 +74,8 @@ export const addHotel = async (req, res) => {
         let sameHotel = await hotelModel.findOne({ hotelName, adress, kosher })
         if (sameHotel)
             return res.status(409).send("כבר קיים כזה מלון במערכת")
-        let newHotel = new hotelModel({ ...req.body});
-        // let newHotel = new hotelModel({ ...req.body, userAdd: req.myUser._id });
+        // let newHotel = new hotelModel({ ...req.body});
+        let newHotel = new hotelModel({ ...req.body, userAdd: req.myUser._id });
 
         await newHotel.save()
         return res.status(201).json(newHotel)
