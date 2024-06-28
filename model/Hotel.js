@@ -22,7 +22,7 @@ export const validatHotel = (hotel) => {
         roomType:Joi.string(),
         price: Joi.number(),
         opinion: Joi.string(),
-        imgRoom: Joi.string(),
+        imgRoom: Joi.array().string(),
         imgHotel: Joi.string(),
         kosher:Joi.string()
     })

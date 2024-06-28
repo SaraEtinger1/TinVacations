@@ -34,7 +34,6 @@ export const deleteHotel = async (req, res) => {
     if (!mongoose.isValidObjectId(id))
         return res.status(404).send("לא קיים כזה קוד")
     try {
-        // let deletedToast = await toastModel.findByIdAndDelete(id);
         let deletedHotel = await hotelModel.findById(id);
         if (!deleteHoteld)
             return res.status(404).send("לא קיים מלון עם כזה קוד למחיקה")
@@ -51,7 +50,6 @@ export const updateHotel = async (req, res) => {
     let id = req.params.id;
     if (!mongoose.isValidObjectId(id))
         return res.status(404).send("לא קיים כזה קוד")
-    // let { nameT, price, categories, isChalavi } = req.body;
     try {
         let hotelToUpdate = await hotelModel.findByIdAndUpdate(id, req.body)
         if (!hotelToUpdate)
@@ -65,8 +63,7 @@ export const updateHotel = async (req, res) => {
 
 }
 export const addHotel = async (req, res) => {
-    let { hotelName, adress, kosher } = req.body;
-   
+    let { hotelName, adress, kosher } = req.body;   
     let result = validatHotel(req.body);
     if (result.error)
         return res.status(400).send(result.error.details[0].message)
@@ -74,7 +71,6 @@ export const addHotel = async (req, res) => {
         let sameHotel = await hotelModel.findOne({ hotelName, adress, kosher })
         if (sameHotel)
             return res.status(409).send("כבר קיים כזה מלון במערכת")
-        // let newHotel = new hotelModel({ ...req.body});
         let newHotel = new hotelModel({ ...req.body, userAdd: req.myUser._id });
 
         await newHotel.save()

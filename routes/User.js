@@ -10,5 +10,4 @@ router.post("/", addUser)
 
 router.post("/login", loginUser)
 
-
 export default router;

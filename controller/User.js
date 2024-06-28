@@ -13,7 +13,7 @@ export const getAllUsers = async (req, res) => {
 }
 export const addUser = async (req, res) => {
     try {
-        let { userName, password, email, phone, role } = req.body;
+        let { userName, password, email, phone } = req.body;
         let result = validateUser(req.body);
         console.log(result)
         if (result.error)
@@ -25,9 +25,8 @@ export const addUser = async (req, res) => {
 
         let hashedPassword = await bcryptjs.hash(password, 15);
 
-        let newUser = new userModel({ userName, password: hashedPassword, email, phone, role });
+        let newUser = new userModel({ userName, password: hashedPassword, email, phone});
         await newUser.save()
-        // newUser.password = "******"
         let token = generateToken(newUser.userName, newUser._id, newUser.role);
 
         return res.status(201).json({ userName: newUser.userName, role: newUser.role, _id: newUser._id, token })
@@ -51,11 +50,7 @@ export const loginUser = async (req, res) => {
         if (!await bcryptjs.compare(password, isUser.password))
             return res.status(400).send("סיסמא לא נכונה")
         let token = generateToken(isUser.userName, isUser._id, isUser.role);
-
         return res.status(201).json({ userName: isUser.userName, role: isUser.role, _id: isUser._id, token })
-
-        // isUser.password = "******"
-        // return res.status(201).json(isUser)
     }
     catch (err) {
         res.status(400).json(err)

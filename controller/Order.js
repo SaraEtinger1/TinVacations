@@ -42,7 +42,6 @@ export const updateOrder = async (req, res) => {
     let id = req.params.id;
     if (!mongoose.isValidObjectId(id))
         return res.status(404).send("לא קיים כזה קוד")
-    // let { name, price, categories, isChalavi } = req.body;
     try {
         let orderToUpdate = await orderModel.findByIdAndUpdate(id, req.body)
         if (!orderToUpdate)
